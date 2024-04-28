@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.demo.carparking.common.Constant;
-import com.demo.carparking.controller.RentController;
 import com.demo.carparking.model.VehicleSpaceFactory;
 import com.demo.carparking.model.Floor;
 import com.demo.carparking.model.Slot;

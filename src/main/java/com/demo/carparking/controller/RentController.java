@@ -35,7 +35,11 @@ public class RentController {
 	public String cycleSpace(Model model) {
 		log.info("******cycleSpace start******");
 		// 単車ボタンを押す処理
-		model.addAttribute("slots", slotService.findUsableSlot());
+		List<Slot> slots = slotService.findUsableSlot();
+		if(null == slots || slots.size() == 0) {
+			model.addAttribute("error", "対象データがありません。");
+		}
+		model.addAttribute("slots", slots);
 		log.info("******cycleSpace end******");
 		return pageName;
 	}
