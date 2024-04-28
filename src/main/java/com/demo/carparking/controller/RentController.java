@@ -78,7 +78,7 @@ public class RentController {
 		model.addAttribute("showCarSpaceSearchForm", true);
 		List<Long> vehicleSpaces = vehicleService.findCarSpace(vs.getWidth(), vs.getHeight());
 		model.addAttribute("vehicleSpace", vs);
-		List<Slot> slots = slotService.findByVehicleSpaceIdIn(vehicleSpaces);
+		List<Slot> slots = slotService.findByVehicleSpaceIdInAndStatus(vehicleSpaces, 0);
 		model.addAttribute("slots", slots);
 		if(null == slots || slots.size() == 0) {
 			model.addAttribute("error", "対象データがありません。");
@@ -94,7 +94,7 @@ public class RentController {
 		model.addAttribute("showTruckSpaceSearchForm", true);
 		List<Long> vehicleSpaces = vehicleService.findTruckSpace(vs.getWidth(), vs.getHeight());
 		model.addAttribute("vehicleSpace", vs);
-		List<Slot> slots = slotService.findByVehicleSpaceIdIn(vehicleSpaces);
+		List<Slot> slots = slotService.findByVehicleSpaceIdInAndStatus(vehicleSpaces, 0);
 		model.addAttribute("slots", slots);
 		if(null == slots || slots.size() == 0) {
 			model.addAttribute("error", "対象データがありません。");

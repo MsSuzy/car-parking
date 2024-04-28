@@ -11,7 +11,7 @@ public interface SlotRepository extends CrudRepository<Slot, Long>{
 
 	List<Slot> findByStatus(int status);
 	
-	List<Slot> findByVehicleSpaceIdIn(List<Long> vehicleSpaceIds);
+	List<Slot> findByVehicleSpaceIdInAndStatus(List<Long> vehicleSpaceIds, int status);
 	
 	Slot findBySlotNumber(String slotNumber);
 	

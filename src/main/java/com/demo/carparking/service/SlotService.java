@@ -26,8 +26,8 @@ public class SlotService {
 		return (List<Slot>) slotRepository.findAll();
 	}
 	
-	public List<Slot> findByVehicleSpaceIdIn(List<Long> vehicleSpaceIds) {
-		return (List<Slot>) slotRepository.findByVehicleSpaceIdIn(vehicleSpaceIds);
+	public List<Slot> findByVehicleSpaceIdInAndStatus(List<Long> vehicleSpaceIds, int status) {
+		return (List<Slot>) slotRepository.findByVehicleSpaceIdInAndStatus(vehicleSpaceIds, status);
 	}
 
 	/*
