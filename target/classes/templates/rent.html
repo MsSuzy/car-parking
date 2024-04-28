@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Car Parking System</title>
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" />
+	<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}" defer></script>
+	<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}" defer></script>
+	<link rel="icon" type="image/x-icon" href="/car.ico" />
+</head>
+
+<body style="background-color: black;">
+	<div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}">
+	</div>
+	<div class="container" style="background-color:black;color:white;">
+		<div class="row">
+			<a href="/"> <img src="/back.png" width="50" height="50">&nbsp;</img> </a>
+			<h1>入車管理</h1>
+		</div>
+		<div class="row">
+			<br />
+		</div>
+		<div class="row">
+			<form action="#" data-th-action="@{/choose_type}" method="get">
+				<button class="btn btn-outline-danger btn-lg" type="submit" name="action" value="cycleSpace">単車</button>
+				<button class="btn btn-outline-danger btn-lg" type="submit" name="action" value="carSpace">普通車</button>
+				<button class="btn btn-outline-danger btn-lg" type="submit" name="action"
+					value="truckSpace">大型車</button>
+			</form>
+
+		</div>
+		<div class="row">
+			<br />
+		</div>
+		<div class="row" th:if="${showCarSpaceSearchForm} == true">
+			<form class="form-inline" th:action="@{/search_car_space}" th:object="${vehicleSpace}" method="post">
+				<div class="form-group mb-2">
+					<label for="width">全長:&nbsp;</label>
+					<input type="number" class="form-control" step='0.1' name="width" id="width"
+						th:value="${vehicleSpace.width}" maxlength="5"
+						onfocusout="if($('#width').val()== '') $('#width').val(0)">
+				</div>
+				<div class="form-group mx-sm-3 mb-2">
+					<label for="height">車高:&nbsp;</label>
+					<input type="number" class="form-control" step='0.1' name="height" id="height"
+						th:value="${vehicleSpace.height}" maxlength="5"
+						onfocusout="if($('#height').val()== '') $('#height').val(0)">
+				</div>
+				<button type="submit">
+					検索
+				</button>
+			</form>
+		</div>
+		<div class="row" th:if="${showTruckSpaceSearchForm} == true">
+			<form class="form-inline" th:action="@{/search_truck_space}" th:object="${vehicleSpace}" method="post">
+				<div class="form-group mb-2">
+					<label for="width">全長:&nbsp;</label>
+					<input type="number" class="form-control" step='0.1' name="width" id="width"
+						th:value="${vehicleSpace.width}" maxlength="5"
+						onfocusout="if($('#width').val()== '') $('#width').val(0)">
+				</div>
+				<div class="form-group mx-sm-3 mb-2">
+					<label for="height">車高:&nbsp;</label>
+					<input type="number" class="form-control" step='0.1' name="height" id="height"
+						th:value="${vehicleSpace.height}" maxlength="5"
+						onfocusout="if($('#height').val()== '') $('#height').val(0)">
+				</div>
+				<button type="submit">
+					検索
+				</button>
+			</form>
+		</div>
+		<div class="row">
+			<table class="table	table-dark" th:if="${slots != null and !slots.empty}" style="width: 70%;">
+				<thead>
+					<tr>
+						<th>番号</th>
+						<th>階</th>
+						<th>全長</th>
+						<th>車高</th>
+						<th>料金(30分)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="slot : ${slots}">
+						<form action="#" th:action="@{/rent_slot/} + ${{slot.id}}" method="get">
+							<td style="display: none;"><input type="hidden" th:value="${slot.id}" /></td>
+							<td th:text="${slot.slotNumber}"></td>
+							<td th:text="${slot.floor.id}"></td>
+							<td th:text="${slot.vehicleSpace.width}"></td>
+							<td th:text="${slot.vehicleSpace.height}"></td>
+							<td th:text="${slot.vehicleSpace.price}"></td>
+							<td>
+								<button th:id="'btnUseSlot' + ${slot.id}" type="submit">
+									利用
+								</button>
+							</td>
+						</form>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
